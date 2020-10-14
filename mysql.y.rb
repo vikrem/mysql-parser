@@ -1024,7 +1024,7 @@ rule
     null                { call(:value, :literal, val) }
   | number              { call(:value, :number, val) }
   | string              { call(:value, :string, val) }
-  | CURRENT_TIMESTAMP S { call(:value, :CURRENT_TIMESTAMP, val) }
+  | CURRENT_TIMESTAMP S r_opt_datatype_int { call(:value, :CURRENT_TIMESTAMP, val) }
 
   # # no rule uses it
   # string_expr :
