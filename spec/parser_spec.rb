@@ -258,5 +258,15 @@ Address varchar ( 255 ) , City varchar ( 255 ) ) ")
       @result = @evaluator.parse("DROP INDEX abc ON bogus")
       test.to eq(" DROP INDEX abc ON bogus ")
     end
+
+    it 'tests that timestamp column type and values can have optional precision' do
+      @result = @evaluator.parse("ALTER TABLE bogus ADD COLUMN x TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3)")
+      expect(
+        @result[:tree]
+          .find_left(name: :r_opt_length_int)
+          .to_list
+          .length
+      ).to eq(1)
+    end
   end
 end
